@@ -163,10 +163,10 @@ describe("ETHPool", function () {
       let tx2 = await pool.connect(owner).removeTeam(bob.address);
       expect(tx2).to.emit(pool, "RemoveTeam").withArgs(bob.address);
 
-      // await pool.connect(alice).deposit({ from: alice.address, value: depositAmountAlice });
-      // await expect(
-      //   pool.connect(bob).depositReward({ from: bob.address, value: rewardAmount })
-      // ).to.be.reverted;
+      await pool.connect(alice).deposit({ from: alice.address, value: depositAmountAlice });
+      await expect(
+        pool.connect(bob).depositReward({ from: bob.address, value: rewardAmount })
+      ).to.be.reverted;
     });
     it("WHEN bob added to team by alice THEN revert", async () => {
       await expect(
